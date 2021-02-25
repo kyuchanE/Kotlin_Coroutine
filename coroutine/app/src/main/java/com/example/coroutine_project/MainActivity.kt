@@ -92,6 +92,29 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 //            userOne.await()
 //            userTwo.await()
 
+
+            /**
+             * scope.launch(Dispatchers.IO) {
+             *      for (name in files) {
+             *      yield() // or ensureActive()
+             *      readFile(name)
+             *      }
+             * }
+             *
+             * 이렇게 리스트에 있는 모든 파일을 읽어오는 작업을 하는 도중에 scope.cancel()을 실행하면 어떻게 될까요?
+             * 반복문의 실행을 멈출까요?
+             *
+             * 아쉽게도 그러지 않습니다.
+             * 무거운 작업을 하는 코루틴을 취소(Cancelation) 하기 위해서는 협력(Co-operation)을 해야 합니다.
+             *
+             * 위 코드에서 코루틴은 파일들을 읽어오기 바빠서 Cancelation을 인지할 여유가 없습니다.
+             * 따라서 무거운 작업을 할 때는 직접 Canceller를 작동하게 해줘야 합니다.
+             *
+             * ensureActive() 또는 yield()로 코루틴이 살아 있는지(cancel()이 호출되었는지) 확인할 수 있습니다.
+             *
+             * 스코프가 cancel 되고 ensureActive()나 yield()가 호출되면 실행 되고 있는 코루틴이 중지됩니다.
+             */
+
         }
 
         /**
