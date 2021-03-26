@@ -120,6 +120,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         /**
          * launch()의 인자에 플러스 연산자로 "handler"를 추가합니다.
          * 예외가 발생하면 이 handler로 콜백이 전달되어 예외처리를 할 수 있습니다.
+         *
          */
         launch(Dispatchers.Default + handler) {
             Log.d("@@@@ Main " , " launch(Dispatchers.Default) >> ")
